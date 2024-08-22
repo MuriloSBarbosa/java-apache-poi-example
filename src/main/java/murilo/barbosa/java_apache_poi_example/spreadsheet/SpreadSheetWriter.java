@@ -38,6 +38,9 @@ public class SpreadSheetWriter<T> {
         var fieldsName = fields.stream().map(Field::getName).toList();
         createHeaderCells(sheet, columns);
         createDataCells(sheet, fieldsName, data);
+        for (int i = 0; i < columns.size(); i++) {
+            sheet.autoSizeColumn(i);
+        }
         return workbook;
     }
 
@@ -86,7 +89,6 @@ public class SpreadSheetWriter<T> {
                 var attributeValue = getAttributeValue(current, fieldsName.get(j));
                 convertValueToCell(cell, attributeValue);
                 cell.setCellStyle(this.dataCellStyle);
-                sheet.autoSizeColumn(j);
             }
         }
     }
